@@ -1,23 +1,20 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Link,
   Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
+import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signin from "./components/Signin";
+import "./styles/global.css";
 
 const Root = () => {
   return (
     <>
-      <div>
-        <Link to="/">HOME</Link>
-        <Link to="/login">LOGIN</Link>
-        <Link to="/signin">SIGIN</Link>
-      </div>
+      <Header />
       <div>
         <Outlet />
       </div>
