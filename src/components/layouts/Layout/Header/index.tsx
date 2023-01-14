@@ -17,6 +17,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import CibusLogo from "./../../../../utils/images/cibus.png";
+import { useUserContext } from "../../../../hooks/contexts";
+import { useCookie } from "../../../../hooks";
 
 const navItems = [
   {
@@ -31,6 +33,8 @@ const navItems = [
 
 export default function Header(props: AppBarProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [, , removeAccessToken] = useCookie("USER_ACCESS_TOKEN");
+  const { user } = useUserContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -54,23 +58,41 @@ export default function Header(props: AppBarProps) {
       </Box>
       <Divider />
       <List>
-        {navItems.map(({ name, route }) => (
-          <React.Fragment key={name}>
-            <ListItem key={name} disablePadding>
+        {!user &&
+          navItems.map(({ name, route }) => (
+            <React.Fragment key={name}>
+              <ListItem key={name} disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <Link to={route}>{name}</Link>
+                </ListItemButton>
+              </ListItem>
+              <Divider
+                variant="middle"
+                sx={{
+                  my: 1,
+                  borderColor: "grey",
+                  width: "90%",
+                }}
+              />
+            </React.Fragment>
+          ))}
+
+        {user && (
+          <>
+            <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }}>
-                <Link to={route}>{name}</Link>
+                <Link to="/profile">Perfil</Link>
               </ListItemButton>
             </ListItem>
-            <Divider
-              variant="middle"
-              sx={{
-                my: 1,
-                borderColor: "grey",
-                width: "90%",
-              }}
-            />
-          </React.Fragment>
-        ))}
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <Link to="/" onClick={() => removeAccessToken()}>
+                  Cerrar sesión
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
       </List>
     </Box>
   );
@@ -105,13 +127,28 @@ export default function Header(props: AppBarProps) {
                 px: 1,
               }}
             >
-              {navItems.map(({ name, route }) => (
-                <React.Fragment key={name}>
-                  <Link to={route} style={{ marginLeft: 20 }}>
-                    {name}
+              {!user &&
+                navItems.map(({ name, route }) => (
+                  <React.Fragment key={name}>
+                    <Link to={route} style={{ marginLeft: 20 }}>
+                      {name}
+                    </Link>
+                  </React.Fragment>
+                ))}
+              {user && (
+                <>
+                  <Link to="/profile" style={{ marginLeft: 20 }}>
+                    Perfil
                   </Link>
-                </React.Fragment>
-              ))}
+                  <Link
+                    to="/"
+                    style={{ marginLeft: 20 }}
+                    onClick={() => removeAccessToken()}
+                  >
+                    Cerrar sesión
+                  </Link>
+                </>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
