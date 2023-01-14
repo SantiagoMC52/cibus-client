@@ -1,9 +1,9 @@
+import useSWR from "swr";
 import { MainLayout } from "../layouts";
 import { REACT_APP_CIBUS_API } from "../../constants";
-import useCookie from "../../hooks/useCookie";
-import useSWR from "swr";
 import { fetcher } from "../../helpers";
-import { User } from "../../types";
+import { useCookie } from "../../hooks";
+import { User } from "../../types/user";
 
 const Profile = () => {
   const [tokenCookie] = useCookie("USER_ACCESS_TOKEN");
