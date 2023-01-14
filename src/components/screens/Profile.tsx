@@ -10,7 +10,7 @@ const Profile = () => {
 
   const { data: user } = useSWR<User>(
     [`${REACT_APP_CIBUS_API}/user`, tokenCookie],
-    () => fetcher(`${REACT_APP_CIBUS_API}/user`, tokenCookie)
+    () => fetcher(`${REACT_APP_CIBUS_API}/user`, tokenCookie as string)
   );
 
   return (
