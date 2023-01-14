@@ -4,20 +4,31 @@ import {
   Outlet,
   Route,
   RouterProvider,
+  useLocation,
 } from "react-router-dom";
-import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signin from "./components/Signin";
 import "./styles/global.css";
+import { Box } from "@mui/material";
+import Navbar from "./components/Header";
 
 const Root = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
-      <Header />
-      <div>
+      {pathname !== "/login" && pathname !== "/signin" && <Navbar />}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+          background: "#f7f8fb",
+        }}
+      >
         <Outlet />
-      </div>
+      </Box>
     </>
   );
 };
