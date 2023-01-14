@@ -16,7 +16,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
-import CibusLogo from "./../../utils/images/cibus.png";
+import CibusLogo from "./../../../../utils/images/cibus.png";
 
 const navItems = [
   {
@@ -29,7 +29,7 @@ const navItems = [
   },
 ];
 
-export default function Navbar(props: AppBarProps) {
+export default function Header(props: AppBarProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -77,7 +77,7 @@ export default function Navbar(props: AppBarProps) {
 
   return (
     <>
-      <Box sx={{ display: "flex", mb: 10 }}>
+      <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar component="nav" {...props}>
           <Toolbar>

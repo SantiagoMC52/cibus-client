@@ -4,32 +4,19 @@ import {
   Outlet,
   Route,
   RouterProvider,
-  useLocation,
 } from "react-router-dom";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Signin from "./components/Signin";
+import Home from "./components/screens/Home";
+import Login from "./components/screens/Login";
+import Signin from "./components/screens/Signin";
 import "./styles/global.css";
-import { Box } from "@mui/material";
-import Navbar from "./components/Header";
+
+import RootLayout from "./components/layouts/Layout";
 
 const Root = () => {
-  const { pathname } = useLocation();
-
   return (
-    <>
-      {pathname !== "/login" && pathname !== "/signin" && <Navbar />}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-          background: "#f7f8fb",
-        }}
-      >
-        <Outlet />
-      </Box>
-    </>
+    <RootLayout>
+      <Outlet />
+    </RootLayout>
   );
 };
 

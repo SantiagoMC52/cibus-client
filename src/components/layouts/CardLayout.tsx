@@ -1,13 +1,18 @@
 import { Box, Container, Paper } from "@mui/material";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import CibusLogo from "./../../utils/images/cibus.png";
 
-const LoginLayout = ({ children }: any) => {
+type Props = {
+  children: ReactNode;
+};
+
+const CardLayout = ({ children }: Props) => {
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "center", py: 5 }}>
         <Link to="/">
-          <img src={CibusLogo} alt="cibus logo" width={50} height={20} />
+          <img src={CibusLogo} alt="cibus logo" width={110} height={40} />
         </Link>
       </Box>
 
@@ -30,4 +35,4 @@ const LoginLayout = ({ children }: any) => {
   );
 };
 
-export default LoginLayout;
+export default CardLayout;
