@@ -1,17 +1,8 @@
-import useSWR from "swr";
+import { useUserContext } from "../../hooks/contexts";
 import { MainLayout } from "../layouts";
-import { REACT_APP_CIBUS_API } from "../../constants";
-import { fetcher } from "../../helpers";
-import { useCookie } from "../../hooks";
-import { User } from "../../types/user";
 
 const Profile = () => {
-  const [tokenCookie] = useCookie("USER_ACCESS_TOKEN");
-
-  const { data: user } = useSWR<User>(
-    [`${REACT_APP_CIBUS_API}/user`, tokenCookie],
-    () => fetcher(`${REACT_APP_CIBUS_API}/user`, tokenCookie as string)
-  );
+  const { user } = useUserContext();
 
   return (
     <MainLayout>
