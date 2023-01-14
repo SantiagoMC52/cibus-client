@@ -11,6 +11,7 @@ import Signin from "./components/screens/Signin";
 import "./styles/global.css";
 
 import RootLayout from "./components/layouts/Layout";
+import Profile from "./components/screens/Profile";
 
 const Root = () => {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     )
   );
