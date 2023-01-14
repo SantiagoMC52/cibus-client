@@ -9,10 +9,10 @@ import {
   MIN_LENGTH_PASSWORD,
   REACT_APP_CIBUS_API,
   REGEX_EMAIL,
-} from "./../constants";
+} from "../../constants";
 import { Link } from "react-router-dom";
-import useCookie from "../hooks/useCookie";
-import LoginLayout from "./layouts/LoginLayout";
+import useCookie from "../../hooks/useCookie";
+import LoginLayout from "../layouts/CardLayout";
 
 // import useCookie from "../../../hooks/useCookie";
 
