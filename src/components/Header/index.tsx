@@ -16,7 +16,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
-import CibusLogo from "./../utils/images/cibus.png";
+import CibusLogo from "./../../utils/images/cibus.png";
 
 const navItems = [
   {
@@ -76,63 +76,65 @@ export default function Navbar(props: AppBarProps) {
   );
 
   return (
-    <Box sx={{ display: "flex", mb: 10 }}>
-      <CssBaseline />
-      <AppBar component="nav" {...props}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            <Link to="/">
-              <img src={CibusLogo} alt="cibus logo" width={70} height={30} />
-            </Link>
-          </Box>
-          <Box
+    <>
+      <Box sx={{ display: "flex", mb: 10 }}>
+        <CssBaseline />
+        <AppBar component="nav" {...props}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              <Link to="/">
+                <img src={CibusLogo} alt="cibus logo" width={70} height={30} />
+              </Link>
+            </Box>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "flex" },
+                justifyContent: "space-between",
+                px: 1,
+              }}
+            >
+              {navItems.map(({ name, route }) => (
+                <React.Fragment key={name}>
+                  <Link to={route} style={{ marginLeft: 20 }}>
+                    {name}
+                  </Link>
+                </React.Fragment>
+              ))}
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box component="nav">
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
             sx={{
-              display: { xs: "none", sm: "flex" },
-              justifyContent: "space-between",
-              px: 1,
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: "100%",
+              },
             }}
           >
-            {navItems.map(({ name, route }) => (
-              <React.Fragment key={name}>
-                <Link to={route} style={{ marginLeft: 20 }}>
-                  {name}
-                </Link>
-              </React.Fragment>
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: "100%",
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
+            {drawer}
+          </Drawer>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
