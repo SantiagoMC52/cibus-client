@@ -1,5 +1,6 @@
-import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Box, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -10,8 +11,7 @@ import {
   REACT_APP_CIBUS_API,
   REGEX_EMAIL,
 } from "../../constants";
-import { Link, useNavigate } from "react-router-dom";
-import useCookie from "../../hooks/useCookie";
+import { useCookie } from "../../hooks";
 import LoginLayout from "../layouts/CardLayout";
 
 type FormData = {
