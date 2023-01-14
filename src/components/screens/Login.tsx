@@ -10,11 +10,9 @@ import {
   REACT_APP_CIBUS_API,
   REGEX_EMAIL,
 } from "../../constants";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCookie from "../../hooks/useCookie";
 import LoginLayout from "../layouts/CardLayout";
-
-// import useCookie from "../../../hooks/useCookie";
 
 type FormData = {
   mail: string;
@@ -22,7 +20,7 @@ type FormData = {
 };
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [, setCookie] = useCookie("USER_ACCESS_TOKEN");
 
   const {
@@ -48,8 +46,8 @@ const Login = () => {
             .then((res) => {
               setCookie(res.data?.access_token);
             })
-            .catch((err) => console.log("Error:", err));
-          // .finally(() => navigate("/profile"));
+            .catch((err) => console.log("Error:", err))
+            .finally(() => navigate("/profile"));
         })}
       >
         <TextField
