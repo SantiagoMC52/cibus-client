@@ -5,13 +5,14 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./components/screens/Home";
-import Login from "./components/screens/Login";
-import Signin from "./components/screens/Signin";
-import "./styles/global.css";
 
-import RootLayout from "./components/layouts/Layout";
+import Home from "./components/screens/Home";
+import Signin from "./components/screens/Signin";
+import Login from "./components/screens/Login";
 import Profile from "./components/screens/Profile";
+import RootLayout from "./components/layouts/Layout";
+import ProtectedRoutes from "./components/screens/Auth/ProtectedRoutes";
+import "./styles/global.css";
 
 const Root = () => {
   return (
@@ -28,7 +29,14 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoutes>
+              <Profile />
+            </ProtectedRoutes>
+          }
+        />
       </Route>
     )
   );

@@ -2,7 +2,9 @@ import { useUserContext } from "../../hooks/contexts";
 import { MainLayout } from "../layouts";
 
 const Profile = () => {
-  const { user } = useUserContext();
+  const { user, isLogged } = useUserContext();
+
+  console.log("isLogged from Profile", isLogged);
 
   return (
     <MainLayout>
