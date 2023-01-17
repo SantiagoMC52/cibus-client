@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Box, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -13,6 +13,7 @@ import {
 } from "../../constants";
 import { useCookie } from "../../hooks";
 import LoginLayout from "../layouts/CardLayout";
+import { useState } from "react";
 
 type FormData = {
   mail: string;
@@ -22,6 +23,9 @@ type FormData = {
 const Login = () => {
   const navigate = useNavigate();
   const [, setCookie] = useCookie("USER_ACCESS_TOKEN");
+  const { state } = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
+  const previousLocation = state?.location?.pathname;
 
   const {
     register,
@@ -40,14 +44,20 @@ const Login = () => {
 
       <Box
         component="form"
-        onSubmit={handleSubmit((formState) => {
-          axios
-            .post(`${REACT_APP_CIBUS_API}/login`, formState)
-            .then((res) => {
-              setCookie(res.data?.access_token);
-            })
-            .catch((err) => console.log("Error:", err))
-            .finally(() => navigate("/profile"));
+        onSubmit={handleSubmit(async (formState) => {
+          setIsLoading(true);
+          try {
+            const res = await axios.post(
+              `${REACT_APP_CIBUS_API}/login`,
+              formState
+            );
+            setCookie(res.data?.access_token);
+          } catch (err) {
+            console.log("Error:", err);
+          } finally {
+            setIsLoading(false);
+            navigate(previousLocation ?? "/profile");
+          }
         })}
       >
         <TextField
@@ -90,7 +100,12 @@ const Login = () => {
         />
 
         <Box display="flex" justifyContent="center" mt={5}>
-          <LoadingButton type="submit" variant="contained" size="large">
+          <LoadingButton
+            loading={isLoading}
+            type="submit"
+            variant="contained"
+            size="large"
+          >
             Iniciar sesión
           </LoadingButton>
         </Box>
