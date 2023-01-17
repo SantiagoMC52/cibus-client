@@ -1,14 +1,15 @@
 import { createContext, ReactNode } from "react";
-import useSWR from "swr";
 import { REACT_APP_CIBUS_API } from "../constants";
 import { fetcher } from "../helpers";
 import { useCookie } from "../hooks";
 import { User } from "../types/user";
+import useSWR from "swr";
 
 type UserContextType = {
   user?: User;
   isLogged: boolean;
   isLoading: boolean;
+  test?: User;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -25,11 +26,18 @@ const UserProvider = ({ children }: Props) => {
 
   const { data: user, isLoading } = useSWR<User>(
     tokenCookie ? [`${REACT_APP_CIBUS_API}/user`, tokenCookie] : null,
-    () => fetcher(`${REACT_APP_CIBUS_API}/user`, tokenCookie as string)
+    () => fetcher(`${REACT_APP_CIBUS_API}/user`, tokenCookie as string),
+    { revalidateIfStale: true }
   );
 
   return (
-    <UserContext.Provider value={{ user, isLoading, isLogged: Boolean(user) }}>
+    <UserContext.Provider
+      value={{
+        user,
+        isLoading,
+        isLogged: Boolean(user),
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
