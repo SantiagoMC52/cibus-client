@@ -15,7 +15,9 @@ import {
   MIN_LENGTH_LAST_NAME,
   MAX_LENGTH_LAST_NAME,
   MIN_LENGTH_NAME,
-  MAX_LENGTH_NAME
+  MAX_LENGTH_NAME,
+  ERROR_MSG_DUPLICATED_MAIL,
+  ERROR_MSG_SERVER
 } from "../../constants";
 
 type FormData = {
@@ -28,7 +30,8 @@ type FormData = {
 const Signin = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [isDuplicatedUser, setIsDuplicatedUser] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
+  const [registerErrorMessage, setRegisterErrorMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -54,8 +57,12 @@ const Signin = () => {
                 navigate("/login");
               })
               .catch((err) => {
-                console.log("Error:", err);
-                setIsDuplicatedUser(true);
+                if (err.response) {
+                  setRegisterErrorMessage(ERROR_MSG_DUPLICATED_MAIL);
+                } else if (err.request) {
+                  setRegisterErrorMessage(ERROR_MSG_SERVER);
+                }
+                setRegisterError(true);
               })
               .finally(() => {
                 setIsLoading(false);
@@ -139,7 +146,7 @@ const Signin = () => {
           size="small"
           sx={{ mt: 2 }}
         />
-          {isDuplicatedUser && <Alert severity="error">Vaya parece que el mail está duplicado!</Alert>}
+          {registerError && <Alert severity="error">{registerErrorMessage}</Alert>}
           <Box display="flex" justifyContent="center" mt={5}>
             <LoadingButton
               loading={isLoading}
