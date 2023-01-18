@@ -108,7 +108,7 @@ const Signin = () => {
               pattern: { value: REGEX_EMAIL, message: "Formato incorrecto" },
               maxLength: {
                 value: EMAIL_MAX_LENGTH,
-                message: "Máximo 50 caracteres",
+                message: `Máximo ${EMAIL_MAX_LENGTH} caracteres`,
               },
             })}
             label="Correo electrónico"
@@ -124,11 +124,11 @@ const Signin = () => {
             required: ERROR_MSG_REQUIRED,
             minLength: {
               value: MIN_LENGTH_PASSWORD,
-              message: "Mínimo 8 caracteres",
+              message: `Mínimo ${MIN_LENGTH_PASSWORD} caracteres`,
             },
             maxLength: {
               value: MAX_LENGTH_PASSWORD,
-              message: "Máximo 20 caracteres",
+              message: `Máximo ${MAX_LENGTH_PASSWORD} caracteres`,
             },
           })}
           label="Contraseña"
