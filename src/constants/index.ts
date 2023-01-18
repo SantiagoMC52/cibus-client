@@ -20,3 +20,5 @@ export const MAX_LENGTH_NAME = 50;
 
 // Input error messages
 export const ERROR_MSG_REQUIRED = "Campo obligatorio";
+export const ERROR_MSG_DUPLICATED_MAIL = "Vaya parece que el mail está duplicado!";
+export const ERROR_MSG_SERVER = "Vaya parece que hay un error en nuestros servidores, lamentamos las molestias, vuelve a intentarlo más tarde.";
