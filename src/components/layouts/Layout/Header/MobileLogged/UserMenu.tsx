@@ -5,6 +5,7 @@ import CibusLogo from "./../../../../../utils/images/cibus.png";
 import MenuCustomIcon from "../components/MenuCustomIcon";
 import { useCookie } from "../../../../../hooks";
 import PersonIcon from "@mui/icons-material/Person";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 type Props = DrawerProps & {
@@ -49,6 +50,11 @@ export default function UserMenu({ handleClose, ...props }: Props) {
             icon={<PersonIcon />}
             handleClick={() => navigate("/profile")}
             text="Perfil"
+          />
+          <MenuCustomIcon
+            icon={<RestaurantIcon />}
+            handleClick={() => navigate("/restaurants")}
+            text="Restaurantes"
           />
           <MenuCustomIcon
             icon={<LogoutIcon />}

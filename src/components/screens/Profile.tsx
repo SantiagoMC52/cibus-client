@@ -1,3 +1,4 @@
+import { Container, Typography } from "@mui/material";
 import { useUserContext } from "../../hooks/contexts";
 import { MainLayout } from "../layouts";
 
@@ -6,7 +7,10 @@ const Profile = () => {
 
   return (
     <MainLayout>
-      Profile of {user?.name} {user?.last_name}
+      <Container>
+        <Typography variant="h4">Perfil</Typography>
+        Nombre: {user?.name} {user?.last_name}
+      </Container>
     </MainLayout>
   );
 };
