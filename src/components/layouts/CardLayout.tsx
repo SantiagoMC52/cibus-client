@@ -1,5 +1,5 @@
-import { Box, Container, Paper } from "@mui/material";
 import { ReactNode } from "react";
+import { Box, Container, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import CibusLogo from "./../../utils/images/cibus.png";
 

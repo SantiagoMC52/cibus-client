@@ -1,9 +1,9 @@
 import { createContext, ReactNode } from "react";
+import useSWR from "swr";
 import { REACT_APP_CIBUS_API } from "../constants";
 import { fetcher } from "../helpers";
 import { useCookie } from "../hooks";
 import { User } from "../types/user";
-import useSWR from "swr";
 
 type UserContextType = {
   user?: User;
