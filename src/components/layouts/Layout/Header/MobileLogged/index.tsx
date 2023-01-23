@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   AppBar,
@@ -15,27 +16,37 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+
+import { useUserContext } from "../../../../../hooks";
 import CibusLogo from "./../../../../../utils/images/cibus.png";
-import { Link } from "react-router-dom";
 import CustomAvatar from "../components/CustomAvatar";
 import UserMenu from "./UserMenu";
-import { useUserContext } from "../../../../../hooks";
 
 const ID = "drawer-mobile-user-menu";
 
 export default function MobileLogged(props: AppBarProps) {
   const { user } = useUserContext();
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
+  const [isOpenUserMenu, setIsOpenUserMenu] = React.useState<boolean>(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  const divider = (
+    <Divider
+      variant="middle"
+      sx={{
+        my: 1,
+        borderColor: "grey",
+        width: "90%",
+      }}
+    />
+  );
+
   return (
     <>
-      {" "}
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar component="nav" {...props}>
@@ -61,7 +72,7 @@ export default function MobileLogged(props: AppBarProps) {
                 edge="end"
                 aria-controls={ID}
                 aria-haspopup="true"
-                onClick={(e) => setIsOpen(true)}
+                onClick={(e) => setIsOpenUserMenu(true)}
                 color="inherit"
               >
                 <CustomAvatar name={user?.name} lastName={user?.last_name} />
@@ -84,7 +95,7 @@ export default function MobileLogged(props: AppBarProps) {
               },
             }}
           >
-            <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: "center" }}>
               <Box
                 sx={{
                   display: "flex",
@@ -102,7 +113,7 @@ export default function MobileLogged(props: AppBarProps) {
                     height={20}
                   />
                 </Link>
-                <CloseIcon />
+                <CloseIcon onClick={handleDrawerToggle} />
               </Box>
               <Divider />
               <List>
@@ -111,37 +122,24 @@ export default function MobileLogged(props: AppBarProps) {
                     <Link to="#">Sobre nosotros</Link>
                   </ListItemButton>
                 </ListItem>
-                <Divider
-                  variant="middle"
-                  sx={{
-                    my: 1,
-                    borderColor: "grey",
-                    width: "90%",
-                  }}
-                />
+                {divider}
                 <ListItem disablePadding>
                   <ListItemButton sx={{ textAlign: "center" }}>
                     <Link to="#">Ayuda</Link>
                   </ListItemButton>
                 </ListItem>
-                <Divider
-                  variant="middle"
-                  sx={{
-                    my: 1,
-                    borderColor: "grey",
-                    width: "90%",
-                  }}
-                />
+                {divider}
               </List>
             </Box>
           </Drawer>
         </Box>
       </Box>
+
       <UserMenu
-        handleClose={() => setIsOpen(false)}
+        handleClose={() => setIsOpenUserMenu(false)}
         id={ID}
         anchor="right"
-        open={isOpen}
+        open={isOpenUserMenu}
       />
     </>
   );

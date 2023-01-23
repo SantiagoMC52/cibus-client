@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -13,7 +14,6 @@ import {
 } from "../../constants";
 import { useCookie } from "../../hooks";
 import LoginLayout from "../layouts/CardLayout";
-import { useState } from "react";
 
 type FormData = {
   mail: string;
@@ -24,7 +24,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [, setCookie] = useCookie("USER_ACCESS_TOKEN");
   const { state } = useLocation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const previousLocation = state?.location?.pathname;
 
   const {

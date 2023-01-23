@@ -18,7 +18,10 @@ export const MAX_LENGTH_LAST_NAME = 50;
 export const MIN_LENGTH_NAME = 2;
 export const MAX_LENGTH_NAME = 50;
 
+export const RESTAURANT_MIN_LENGHT = 4
+export const RESTAURANT_MAX_LENGHT = 50
+
 // Input error messages
 export const ERROR_MSG_REQUIRED = "Campo obligatorio";
-export const ERROR_MSG_DUPLICATED_MAIL = "Vaya parece que el mail está duplicado!";
+export const ERROR_MSG_DUPLICATED_MAIL = "¡Vaya parece que el mail está duplicado!";
 export const ERROR_MSG_SERVER = "Vaya parece que hay un error en nuestros servidores, lamentamos las molestias, vuelve a intentarlo más tarde.";

@@ -1,7 +1,8 @@
-import { Menu, MenuProps } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Menu, MenuProps } from "@mui/material";
 import MenuCustomIcon from "./../components/MenuCustomIcon";
 import PersonIcon from "@mui/icons-material/Person";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useCookie } from "../../../../../hooks";
 
@@ -18,6 +19,11 @@ const UserMenu = (props: MenuProps) => {
         icon={<PersonIcon />}
         handleClick={() => navigate("/profile")}
         text="Perfil"
+      />
+      <MenuCustomIcon
+        icon={<RestaurantIcon />}
+        handleClick={() => navigate("/restaurants")}
+        text="Restaurantes"
       />
       <MenuCustomIcon
         icon={<LogoutIcon />}

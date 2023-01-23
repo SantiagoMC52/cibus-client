@@ -1,5 +1,5 @@
-import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { ReactNode } from "react";
+import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 
 type Props = {
   handleClick: () => void;
