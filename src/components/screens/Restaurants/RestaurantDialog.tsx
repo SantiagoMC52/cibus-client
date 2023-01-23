@@ -66,7 +66,6 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
               enqueueSnackbar("Restaurante añadido correctamente", {
                 variant: "success",
               });
-              console.log(res.data);
             })
             .catch((err) => console.log("Error", err))
             .finally(() => setIsLoading(false));
