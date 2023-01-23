@@ -13,6 +13,7 @@ import Profile from "./components/screens/Profile";
 import RootLayout from "./components/layouts/Layout";
 import ProtectedRoutes from "./components/screens/Auth/ProtectedRoutes";
 import "./styles/global.css";
+import Restaurants from "./components/screens/Restaurants";
 
 const Root = () => {
   return (
@@ -34,6 +35,14 @@ function App() {
           element={
             <ProtectedRoutes>
               <Profile />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/restaurants"
+          element={
+            <ProtectedRoutes>
+              <Restaurants />
             </ProtectedRoutes>
           }
         />
