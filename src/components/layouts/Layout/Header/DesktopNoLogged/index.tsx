@@ -1,15 +1,7 @@
 import React from "react";
 
-import {
-  AppBar,
-  AppBarProps,
-  Box,
-  CssBaseline,
-  IconButton,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, AppBarProps, Box, CssBaseline, Toolbar } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import CibusLogo from "./../../../../../utils/images/cibus.png";
 
@@ -31,14 +23,6 @@ export default function DesktopNoLogged(props: AppBarProps) {
         <CssBaseline />
         <AppBar component="nav" {...props}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
             <Box component="div" sx={{ flexGrow: 1 }}>
               <Link to="/">
                 <img src={CibusLogo} alt="cibus logo" width={70} height={30} />
