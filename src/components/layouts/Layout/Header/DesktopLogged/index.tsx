@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   AppBar,
@@ -9,7 +10,6 @@ import {
   Toolbar,
 } from "@mui/material";
 
-import { Link } from "react-router-dom";
 import CibusLogo from "./../../../../../utils/images/cibus.png";
 import { useUserContext } from "../../../../../hooks";
 import UserMenu from "./UserMenu";
@@ -18,7 +18,7 @@ import CustomAvatar from "../components/CustomAvatar";
 const ID = "user-menu";
 
 export default function DesktopLogged(props: AppBarProps) {
-  const [isOpen, setIsOpen] = useState<HTMLElement | null>(null);
+  const [isOpen, setIsOpen] = React.useState<HTMLElement | null>(null);
   const { user } = useUserContext();
 
   return (

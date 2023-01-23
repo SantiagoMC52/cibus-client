@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   AppBar,
@@ -16,7 +17,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import CibusLogo from "./../../../../../utils/images/cibus.png";
-import { Link } from "react-router-dom";
 
 const navItems = [
   {
@@ -30,7 +30,7 @@ const navItems = [
 ];
 
 export default function MobileNoLogged(props: AppBarProps) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -68,7 +68,7 @@ export default function MobileNoLogged(props: AppBarProps) {
             },
           }}
         >
-          <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+          <Box sx={{ textAlign: "center" }}>
             <Box
               sx={{
                 display: "flex",
@@ -81,7 +81,7 @@ export default function MobileNoLogged(props: AppBarProps) {
               <Link to="/">
                 <img src={CibusLogo} alt="cibus logo" width={50} height={20} />
               </Link>
-              <CloseIcon />
+              <CloseIcon onClick={handleDrawerToggle} />
             </Box>
             <Divider />
             <List>

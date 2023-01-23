@@ -1,8 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { AppBar, AppBarProps, Box, CssBaseline, Toolbar } from "@mui/material";
-
-import { Link } from "react-router-dom";
 import CibusLogo from "./../../../../../utils/images/cibus.png";
 
 const navItems = [

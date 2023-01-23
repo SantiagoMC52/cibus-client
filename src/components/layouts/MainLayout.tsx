@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import { ReactNode } from "react";
+import { Box } from "@mui/material";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
 
