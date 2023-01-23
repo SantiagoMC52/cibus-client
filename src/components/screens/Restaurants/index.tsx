@@ -1,5 +1,13 @@
 /* eslint-disable multiline-ternary */
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 import { REACT_APP_CIBUS_API } from "../../../constants";
 import { fetcher } from "../../../helpers";
 import { useCookie } from "../../../hooks";
@@ -17,7 +25,11 @@ const Restaurants = () => {
     setIsOpen(false);
   };
 
-  const { data: restaurants, mutate } = useSWR<Restaurant[]>(
+  const {
+    data: restaurants,
+    mutate,
+    isLoading,
+  } = useSWR<Restaurant[]>(
     tokenCookie ? [`${REACT_APP_CIBUS_API}/restaurants`, tokenCookie] : null,
     () => fetcher(`${REACT_APP_CIBUS_API}/restaurants`, tokenCookie as string)
   );
@@ -44,20 +56,24 @@ const Restaurants = () => {
             Añadir restaurante
           </Button>
         </Box>
-        {restaurants ? (
+        {restaurants?.length === 0 ? (
+          "Aún no tienes restaurantes"
+        ) : (
           <Grid container spacing={3}>
-            {(restaurants || []).map((restaurant: Restaurant) => {
+            {restaurants?.map((restaurant: Restaurant) => {
               return (
                 <Grid item key={restaurant.id} xs={12} sm={4}>
-                  <Paper sx={{ p: 5 }}>
-                    <Typography variant="h6">{restaurant.name}</Typography>
-                  </Paper>
+                  {!isLoading ? (
+                    <Paper sx={{ p: 5 }}>
+                      <Typography variant="h6">{restaurant.name}</Typography>
+                    </Paper>
+                  ) : (
+                    <Skeleton variant="rectangular" height={118} />
+                  )}
                 </Grid>
               );
             })}
           </Grid>
-        ) : (
-          "Aún no tienes restaurantes"
         )}
       </Container>
 
