@@ -42,7 +42,7 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
       PaperProps={{
         sx: {
           maxWidth: 400,
-          minHeight: 450,
+          minHeight: 350,
           borderRadius: 4,
         },
       }}
@@ -119,7 +119,13 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
           >
             Añadir
           </LoadingButton>
-          <LoadingButton variant="contained" size="large" onClick={onClose}>
+          <LoadingButton
+            variant="contained"
+            size="large"
+            onClick={() => {
+              onClose();
+            }}
+          >
             Cancelar
           </LoadingButton>
         </Box>
