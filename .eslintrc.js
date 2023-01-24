@@ -21,5 +21,6 @@ module.exports = {
     "comma-dangle": "off",
     semi: "off",
     "react/prop-types": "off",
+    "multiline-ternary": "off",
   },
 };

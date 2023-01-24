@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Dialog, DialogTitle, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import {
   RESTAURANT_MIN_LENGHT,
@@ -11,21 +11,31 @@ import axios from "axios";
 import { useState } from "react";
 import { useCookie } from "../../../hooks";
 import { useSnackbar } from "notistack";
+import { Restaurant } from "../../../types/restaurants";
+import { CardLayout } from "../../layouts";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
-  open: boolean;
-  onClose: () => void;
-  refreshRestaurants: any;
+  handleClose: () => void;
+  refreshRestaurants?: any;
+  refreshDetail?: any;
+  data?: Restaurant;
 };
 
 type FormData = {
   name: string;
   address: string;
 };
-const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
+const RestaurantForm = ({
+  handleClose,
+  refreshRestaurants,
+  refreshDetail,
+  data,
+}: Props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [tokenCookie] = useCookie("USER_ACCESS_TOKEN");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -33,37 +43,42 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
     reset,
     formState: { errors },
   } = useForm<FormData>({
+    defaultValues: data || {},
     mode: "onTouched",
     shouldFocusError: false,
   });
 
   return (
-    <Dialog
-      PaperProps={{
-        sx: {
-          maxWidth: 400,
-          minHeight: 350,
-          borderRadius: 4,
-        },
-      }}
-      open={open}
-      onClose={onClose}
-    >
-      <DialogTitle mt={2}>Añade un restaurante</DialogTitle>
+    <CardLayout>
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        {data ? "Edita el restaurante" : "Añade un restaurante"}
+      </Typography>
       <Box
         component="form"
         sx={{ p: 2 }}
         onSubmit={handleSubmit((formState) => {
           setIsLoading(true);
-          axios
-            .post(`${REACT_APP_CIBUS_API}/restaurants`, formState, {
-              headers: { Authorization: `Bearer ${tokenCookie}` },
-            })
+          axios({
+            method: data ? "PUT" : "POST",
+            headers: { Authorization: `Bearer ${tokenCookie}` },
+            url: data
+              ? `${REACT_APP_CIBUS_API}/restaurants/${data.id}`
+              : `${REACT_APP_CIBUS_API}/restaurants`,
+            data: data
+              ? { name: formState.name, address: formState.address }
+              : formState,
+          })
             .then((res) => {
-              refreshRestaurants();
-              reset();
-              onClose();
-              enqueueSnackbar("Restaurante añadido correctamente", {
+              if (res.config.method === "post") {
+                refreshRestaurants();
+                reset();
+              } else {
+                refreshDetail();
+              }
+            })
+            .then(() => {
+              handleClose();
+              enqueueSnackbar("Restaurante guardado correctamente", {
                 variant: "success",
               });
             })
@@ -89,6 +104,7 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
           fullWidth
           type="text"
           size="small"
+          defaultValue={data?.name}
         />
 
         <TextField
@@ -101,7 +117,8 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
           fullWidth
           type="text"
           size="small"
-          sx={{ mt: 3 }}
+          sx={{ mt: 2 }}
+          defaultValue={data?.address}
         />
 
         <Box
@@ -112,26 +129,46 @@ const RestaurantDialog = ({ open, onClose, refreshRestaurants }: Props) => {
           mt={4}
         >
           <LoadingButton
-            loading={isLoading}
             type="submit"
+            loading={isLoading}
             variant="contained"
             size="large"
           >
-            Añadir
+            {data ? "Editar" : "Añadir"}
           </LoadingButton>
           <LoadingButton
             variant="contained"
             size="large"
             onClick={() => {
-              onClose();
+              handleClose();
             }}
           >
             Cancelar
           </LoadingButton>
+          {data ? (
+            <LoadingButton
+              onClick={() =>
+                axios
+                  .delete(`${REACT_APP_CIBUS_API}/restaurants/${data.id}`, {
+                    headers: { Authorization: `Bearer ${tokenCookie}` },
+                  })
+                  .then(() => {
+                    navigate("/restaurants");
+                    handleClose();
+                    enqueueSnackbar("Restaurante eliminado correctamente", {
+                      variant: "success",
+                    });
+                  })
+              }
+              color="error"
+            >
+              Eliminar
+            </LoadingButton>
+          ) : null}
         </Box>
       </Box>
-    </Dialog>
+    </CardLayout>
   );
 };
 
-export default RestaurantDialog;
+export default RestaurantForm;

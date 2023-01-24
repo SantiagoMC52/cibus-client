@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Box, TextField, Alert } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import LoginLayout from "../layouts/CardLayout";
+import CardLayout from "../layouts/CardLayout";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {
@@ -44,7 +44,7 @@ const Signin = () => {
   });
 
   return (
-    <LoginLayout>
+    <CardLayout logo>
       <Typography variant="h5" textAlign="center" mb={3}>
         Registro
       </Typography>
@@ -168,7 +168,7 @@ const Signin = () => {
           </Link>
         </Typography>
       </Box>
-    </LoginLayout>
+    </CardLayout>
   );
 };
 

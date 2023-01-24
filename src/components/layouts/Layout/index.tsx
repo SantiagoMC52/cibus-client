@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
-import { Box } from "@mui/material";
+import { Box, BoxProps } from "@mui/material";
 
-type LayoutProps = {
+type LayoutProps = BoxProps & {
   children: ReactNode;
 };
 
-const RootLayout = ({ children }: LayoutProps) => {
+const RootLayout = ({ children, ...props }: LayoutProps) => {
   return (
     <Box
       sx={{
@@ -14,6 +14,7 @@ const RootLayout = ({ children }: LayoutProps) => {
         minHeight: "100vh",
         background: "#f7f8fb",
       }}
+      {...props}
     >
       {children}
     </Box>

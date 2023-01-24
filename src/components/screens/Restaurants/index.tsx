@@ -1,8 +1,8 @@
-/* eslint-disable multiline-ternary */
 import {
   Box,
   Button,
   Container,
+  Dialog,
   Grid,
   Paper,
   Skeleton,
@@ -14,7 +14,7 @@ import { useCookie } from "../../../hooks";
 import { MainLayout } from "../../layouts";
 import useSWR from "swr";
 import { useState } from "react";
-import RestaurantDialog from "./RestaurantDialog";
+import RestaurantForm from "./RestaurantForm";
 import { Link } from "react-router-dom";
 import { Restaurant } from "../../../types/restaurants";
 
@@ -66,21 +66,7 @@ const Restaurants = () => {
                 <Grid item key={restaurant.id} xs={12} sm={4}>
                   {!isLoading ? (
                     <Link to={`/restaurants/${restaurant.id}`}>
-                      <Paper sx={{ px: 2, pb: 4, pt: 2 }}>
-                        <Box
-                          sx={{ display: "flex", justifyContent: "flex-end" }}
-                        >
-                          <Button
-                            variant="contained"
-                            size="small"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setIsOpen(true);
-                            }}
-                          >
-                            Editar
-                          </Button>
-                        </Box>
+                      <Paper sx={{ p: 5 }}>
                         <Typography variant="h6">{restaurant.name}</Typography>
                       </Paper>
                     </Link>
@@ -94,11 +80,14 @@ const Restaurants = () => {
         )}
       </Container>
 
-      <RestaurantDialog
-        open={isOpen}
-        onClose={handleClose}
-        refreshRestaurants={mutate}
-      />
+      <Dialog open={isOpen} onClose={handleClose}>
+        {isOpen && (
+          <RestaurantForm
+            refreshRestaurants={mutate}
+            handleClose={handleClose}
+          />
+        )}
+      </Dialog>
     </MainLayout>
   );
 };
