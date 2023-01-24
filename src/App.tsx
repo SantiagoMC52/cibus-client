@@ -14,6 +14,7 @@ import RootLayout from "./components/layouts/Layout";
 import ProtectedRoutes from "./components/screens/Auth/ProtectedRoutes";
 import "./styles/global.css";
 import Restaurants from "./components/screens/Restaurants";
+import RestaurantDetail from "./components/screens/Restaurants/RestaurantDetail";
 
 const Root = () => {
   return (
@@ -43,6 +44,14 @@ function App() {
           element={
             <ProtectedRoutes>
               <Restaurants />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="restaurants/:restaurantId"
+          element={
+            <ProtectedRoutes>
+              <RestaurantDetail />
             </ProtectedRoutes>
           }
         />

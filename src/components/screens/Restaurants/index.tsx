@@ -13,9 +13,10 @@ import { fetcher } from "../../../helpers";
 import { useCookie } from "../../../hooks";
 import { MainLayout } from "../../layouts";
 import useSWR from "swr";
-import { Restaurant } from "../../../types/user";
 import { useState } from "react";
 import RestaurantDialog from "./RestaurantDialog";
+import { Link } from "react-router-dom";
+import { Restaurant } from "../../../types/restaurants";
 
 const Restaurants = () => {
   const [tokenCookie] = useCookie("USER_ACCESS_TOKEN");
@@ -64,9 +65,25 @@ const Restaurants = () => {
               return (
                 <Grid item key={restaurant.id} xs={12} sm={4}>
                   {!isLoading ? (
-                    <Paper sx={{ p: 5 }}>
-                      <Typography variant="h6">{restaurant.name}</Typography>
-                    </Paper>
+                    <Link to={`/restaurants/${restaurant.id}`}>
+                      <Paper sx={{ px: 2, pb: 4, pt: 2 }}>
+                        <Box
+                          sx={{ display: "flex", justifyContent: "flex-end" }}
+                        >
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setIsOpen(true);
+                            }}
+                          >
+                            Editar
+                          </Button>
+                        </Box>
+                        <Typography variant="h6">{restaurant.name}</Typography>
+                      </Paper>
+                    </Link>
                   ) : (
                     <Skeleton variant="rectangular" height={118} />
                   )}
