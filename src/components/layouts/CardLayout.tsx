@@ -1,20 +1,23 @@
 import { ReactNode } from "react";
-import { Box, Container, Paper } from "@mui/material";
+import { Box, BoxProps, Container, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import CibusLogo from "./../../utils/images/cibus.png";
 
-type Props = {
+type Props = BoxProps & {
   children: ReactNode;
+  logo?: boolean;
 };
 
-const CardLayout = ({ children }: Props) => {
+const CardLayout = ({ children, logo = false }: Props) => {
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "center", py: 5 }}>
-        <Link to="/">
-          <img src={CibusLogo} alt="cibus logo" width={110} height={40} />
-        </Link>
-      </Box>
+      {logo && (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 5 }}>
+          <Link to="/">
+            <img src={CibusLogo} alt="cibus logo" width={110} height={40} />
+          </Link>
+        </Box>
+      )}
 
       <Container
         component={Paper}

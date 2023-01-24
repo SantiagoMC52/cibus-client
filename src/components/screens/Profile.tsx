@@ -8,8 +8,9 @@ const Profile = () => {
   return (
     <MainLayout>
       <Container>
-        <Typography variant="h4">Perfil</Typography>
-        Nombre: {user?.name} {user?.last_name}
+        <Typography variant="h4">
+          Bienvenido/a de nuevo {user?.name} {user?.last_name}
+        </Typography>
       </Container>
     </MainLayout>
   );
