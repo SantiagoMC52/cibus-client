@@ -1,8 +1,8 @@
-/* eslint-disable multiline-ternary */
 import {
   Box,
   Button,
   Container,
+  Dialog,
   Grid,
   Paper,
   Skeleton,
@@ -13,9 +13,10 @@ import { fetcher } from "../../../helpers";
 import { useCookie } from "../../../hooks";
 import { MainLayout } from "../../layouts";
 import useSWR from "swr";
-import { Restaurant } from "../../../types/user";
 import { useState } from "react";
-import RestaurantDialog from "./RestaurantDialog";
+import RestaurantForm from "./RestaurantForm";
+import { Link } from "react-router-dom";
+import { Restaurant } from "../../../types/restaurants";
 
 const Restaurants = () => {
   const [tokenCookie] = useCookie("USER_ACCESS_TOKEN");
@@ -64,9 +65,11 @@ const Restaurants = () => {
               return (
                 <Grid item key={restaurant.id} xs={12} sm={4}>
                   {!isLoading ? (
-                    <Paper sx={{ p: 5 }}>
-                      <Typography variant="h6">{restaurant.name}</Typography>
-                    </Paper>
+                    <Link to={`/restaurants/${restaurant.id}`}>
+                      <Paper sx={{ p: 5 }}>
+                        <Typography variant="h6">{restaurant.name}</Typography>
+                      </Paper>
+                    </Link>
                   ) : (
                     <Skeleton variant="rectangular" height={118} />
                   )}
@@ -77,11 +80,14 @@ const Restaurants = () => {
         )}
       </Container>
 
-      <RestaurantDialog
-        open={isOpen}
-        onClose={handleClose}
-        refreshRestaurants={mutate}
-      />
+      <Dialog open={isOpen} onClose={handleClose}>
+        {isOpen && (
+          <RestaurantForm
+            refreshRestaurants={mutate}
+            handleClose={handleClose}
+          />
+        )}
+      </Dialog>
     </MainLayout>
   );
 };

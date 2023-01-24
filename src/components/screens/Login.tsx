@@ -13,7 +13,7 @@ import {
   REGEX_EMAIL,
 } from "../../constants";
 import { useCookie } from "../../hooks";
-import LoginLayout from "../layouts/CardLayout";
+import CardLayout from "../layouts/CardLayout";
 
 type FormData = {
   mail: string;
@@ -37,7 +37,7 @@ const Login = () => {
   });
 
   return (
-    <LoginLayout>
+    <CardLayout logo>
       <Typography variant="h5" textAlign="center" mb={3}>
         Iniciar sesión
       </Typography>
@@ -117,7 +117,7 @@ const Login = () => {
           </Link>
         </Typography>
       </Box>
-    </LoginLayout>
+    </CardLayout>
   );
 };
 
